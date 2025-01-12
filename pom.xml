@@ -85,7 +85,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
                 <configuration>
-                    <mainClass>com.example.javabookmanagementsystem.JavaBookManagementSystemApplication</mainClass>
+                    <mainClass>com.example.JavaBookManagementSystemApplication</mainClass>
                     <skip>true</skip>
                 </configuration>
                 <executions>
