@@ -1,208 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
     <meta charset="utf-8">
-    <title>layout 管理界面大布局示例 - Layui</title>
+    <title>后台管理模板系统</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="/layui/css/layui.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="/layui/dist/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layui/dist/style/admin.css" media="all">
+
+    <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script>
 </head>
-
 <body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
 
-    <div id="lay_app">
-        <div class="layui-layout-admin layui-layout">
+        <!-- 头部栏 分为两个区域，左边和右边 -->
+        <div class="layui-header">
+            <!-- 左边部分 -->
+            <ul class="layui-nav layui-layout-left">
+                <!-- 收缩按钮 -->
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <!-- 外部网站的小图标，点击跳转到其他网站 -->
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <!-- <a href="http://www.layui.com/admin/" title="前台"> -->
+                    <a href="http://www.baidu.com/" title="百度 前台">
+                        <i class="layui-icon layui-icon-engine"></i>
+                    </a>
+                </li>
+                <!-- 刷新图标 -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+                <!-- 搜索框 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <input type="text"
+                           placeholder="搜索..."
+                           autocomplete="off"
+                           class="layui-input layui-input-search"
+                           layadmin-event="search"
+                           lay-action="template/search.html?keywords=">
+                </li>
+            </ul>
 
-            <!-- 头部栏 分左右两边 -->
-            <div class="layui-header">
-                <!-- 顶部栏和侧边栏的交接处，即左上角的文字 -->
-                <div class="layui-logo layui-hide-xs layui-bg-black">layout demo</div>
+            <!-- 右边部分 -->
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <!-- 信息提示符号，铃铛 -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+                        <i class="layui-icon layui-icon-notice"></i>
+                        <!-- 如果有新消息，则显示小圆点 -->
+                        <span class="layui-badge-dot"></span>
+                    </a>
+                </li>
+                <!-- 更换后台页面的配色风格 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="theme">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                </li>
+                <!-- 便签，但我感觉没什么用 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="note">
+                        <i class="layui-icon layui-icon-note"></i>
+                    </a>
+                </li>
+                <!-- 全屏 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="fullscreen">
+                        <i class="layui-icon layui-icon-screen-full"></i>
+                    </a>
+                </li>
+                <!-- 用户名 用户信息修改 -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <!-- 用户名 -->
+                        <cite>贤心</cite>
+                    </a>
 
-                <!-- 左边部分   -->
-                <ul class="layui-nav layui-layout-left">
-                    <!-- 收缩按钮 -->
-                    <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                        <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
-                            <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
-                        </a>
-                    </li>
-                    <!-- 外部网站的小图标，点击跳转到其他网站 -->
-                    <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                        <a href="http://www.baidu.com/" title="百度 前台">
-                            <i class="layui-icon layui-icon-engine"></i>
-                        </a>
+                    <dl class="layui-nav-child">
+                        <hr>
+                        <!-- 退出操作 -->
+                        <dd layadmin-event="logout" style="text-align: center;">
+                            <a>退出</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="more">
+                        <i class="layui-icon layui-icon-more-vertical"></i>
+                        <href></href>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <!-- 最上方标题 网站名称 -->
+                <div class="layui-logo" lay-href="home/console.html">
+                    <span>图书管理系统</span>
+                </div>
 
-                    </li>
-                    <!-- 刷新图标 -->
-                    <li class="layui-nav-item" lay-unselect>
-                        <a href="javascript:;" layadmin-event="refresh" title="刷新">
-                            <i class="layui-icon layui-icon-refresh-3"></i>
-                        </a>
-                    </li>
-                    <!-- 搜索框 -->
-                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <input type="text"
-                               placeholder="搜索..."
-                               autocomplete="off"
-                               class="layui-input layui-input-search"
-                               layadmin-event="search"
-                               lay-action="template/search.html?keywords=">
-                    </li>
-                </ul>
+                <!-- 目录栏内容 -->
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
 
-                <!-- 右边部分 -->
-                <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
-                    <!-- 信息提示符号，铃铛，最右边的-->
-                    <li class="layui-nav-item" lay-unselect>
-                        <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
-                            <i class="layui-icon layui-icon-notice"></i>
-                            <!-- 如果有新消息，则显示小圆点 -->
-                            <span class="layui-badge-dot"></span>
+                    <!-- 后台主页 -->
+                    <li data-name="home" class="layui-nav-item layui-nav-itemed">
+                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                            <i class="layui-icon layui-icon-home"></i>
+                            <cite>主页</cite>
                         </a>
-                    </li>
-                    <!-- 更换后台页面的配色风格 -->
-                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="javascript:;" layadmin-event="theme">
-                            <i class="layui-icon layui-icon-theme"></i>
-                        </a>
-                    </li>
-                    <!-- 便签，但我感觉没什么用 -->
-                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="javascript:;" layadmin-event="note">
-                            <i class="layui-icon layui-icon-note"></i>
-                        </a>
-                    </li>
-                    <!-- 全屏 -->
-                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="javascript:;" layadmin-event="fullscreen">
-                            <i class="layui-icon layui-icon-screen-full"></i>
-                        </a>
-                    </li>
-                    <!-- 用户名 用户信息修改 -->
-                    <li class="layui-nav-item" lay-unselect>
-                        <a href="javascript:;">
-                            <!-- 用户名 -->
-                            <cite>贤心</cite>
-                        </a>
-
                         <dl class="layui-nav-child">
-                            <hr>
-                            <!-- 退出操作 -->
-                            <dd layadmin-event="logout" style="text-align: center;">
-                                <a>退出</a>
+                            <dd data-name="console" class="layui-this">
+                                <a lay-href="home/console.html">控制台</a>
+                            </dd>
+
+                            <dd data-name="console">
+                                <a lay-href="home/homepage1.html">主页一</a>
+                            </dd>
+
+                            <dd data-name="console">
+                                <a lay-href="home/homepage2.html">主页二</a>
                             </dd>
                         </dl>
                     </li>
-                    <li class="layui-nav-item layui-hide-xs" lay-unselect>
-                        <a href="javascript:;" layadmin-event="more">
-                            <i class="layui-icon layui-icon-more-vertical"></i>
-                            <href></href>
+
+
+
+                    <!-- 图书类别管理 -->
+                    <li data-name="bookType" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>图书类别管理</cite>
+                        </a>
+                    </li>
+                    <!-- 图书管理 -->
+                    <li data-name="book" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>图书管理</cite>
+                        </a>
+                    </li>
+                    <!-- 用户信息管理 -->
+                    <li data-name="user" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>用户管理</cite>
+                        </a>
+                    </li>
+                    <!-- 借阅管理 -->
+                    <li data-name="record" class="layui-nav-item">
+                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>借阅管理</cite>
                         </a>
                     </li>
                 </ul>
             </div>
+        </div>
+        <!-- 页面标签 -->
+        <div class="layadmin-pagetabs" id="LAY_app_tabs">
+            <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
 
-            <!-- 侧边菜单 -->
-            <div class="layui-side layui-bg-black layui-side-menu">
-                <!-- 目录栏内容 -->
-                <div class="layui-side-scroll">
-                    <ul class="layui-nav layui-nav-tree"
-                        lay-shrink="all" id="LAY-system-side-menu"
-                        lay-filter="test">
 
-                        <!-- 后台主页 -->
-                        <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                            <a href="javascript:;" lay-tips="主页" lay-direction="2">
-                                <i class="layui-icon layui-icon-home"></i>
-                                <cite>主页</cite>
-                            </a>
-                            <dl class="layui-nav-child">
-                                <dd data-name="console" class="layui-this">
-                                    <a lay-href="home/console.html">控制台</a>
-                                </dd>
-                                <dd data-name="console">
-                                    <a lay-href="home/homepage1.html">主页一</a>
-                                </dd>
-                            </dl>
-                        </li>
-                        <!-- 图书类别管理 -->
-                        <li data-name="bookType" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                                <i class="layui-icon layui-icon-component"></i>
-                                <cite>图书类别管理</cite>
-                            </a>
-                        </li>
-                        <!-- 图书管理 -->
-                        <li data-name="book" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                                <i class="layui-icon layui-icon-component"></i>
-                                <cite>图书管理</cite>
-                            </a>
-                        </li>
-                        <!-- 用户信息管理 -->
-                        <li data-name="user" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                                <i class="layui-icon layui-icon-component"></i>
-                                <cite>用户管理</cite>
-                            </a>
-                        </li>
-                        <!-- 借阅管理 -->
-                        <li data-name="record" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                                <i class="layui-icon layui-icon-component"></i>
-                                <cite>借阅管理</cite>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
+            <div class="layui-icon layadmin-tabs-control layui-icon-down">
+                <ul class="layui-nav layadmin-tabs-select" lay-filter="layadmin-pagetabs-nav">
+                    <li class="layui-nav-item" lay-unselect>
+                        <a href="javascript:;"></a>
+                        <dl class="layui-nav-child layui-anim-fadein">
+                            <dd layadmin-event="closeThisTabs"><a href="javascript:;">关闭当前标签页</a></dd>
+                            <dd layadmin-event="closeOtherTabs"><a href="javascript:;">关闭其它标签页</a></dd>
+                            <dd layadmin-event="closeAllTabs"><a href="javascript:;">关闭全部标签页</a></dd>
+                        </dl>
+                    </li>
+                </ul>
             </div>
 
-            <!-- 内容主体区域 -->
-            <div class="layui-body">
-                <div style="padding: 15px;">
-                    <blockquote class="layui-elem-quote layui-text">
-                        Layui 框体布局内容主体区域
-                    </blockquote>
-                    <div class="layui-card layui-panel">
-                        <div class="layui-card-header">
-                            下面是充数内容，为的是出现滚动条
-                        </div>
-                        <div class="layui-card-body">
-                            充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>充数内容<br>你还真滑到了底部呀
-                        </div>
-                    </div>
-                    <br><br>
-                </div>
+
+            <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
+                <ul class="layui-tab-title" id="LAY_app_tabsheader">
+                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                </ul>
             </div>
 
-            <div class="layui-footer">
-                <!-- 底部固定区域 -->
-                底部固定区域
+            <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
+
+        </div>
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
         </div>
+        <!-- 辅助元素，一般用于移动设备下遮罩 -->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
+</div>
 
 
-    <!-- 侧边栏收缩功能 -->
-    <script src="/layui/layui.js"></script>
-    <script>
-        layui.config({
-            base: '/layui/' //静态资源所在路径
-        }).extend({
-            index: 'lib/index' //主入口模块
-        }).use('index');
-    </script>
+<!-- 侧边栏收缩功能 -->
+<script src="/layui/dist/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../layui/dist/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+</script>
 
-    <!-- 百度统计 -->
-    <script>
-        var _hmt = _hmt || [];
-        (function() {
-            var hm = document.createElement("script");
-            hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
-            var s = document.getElementsByTagName("script")[0];
-            s.parentNode.insertBefore(hm, s);
-        })();
-    </script>
+<!-- 百度统计 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 </body>
 </html>
