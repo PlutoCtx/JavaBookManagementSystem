@@ -27,4 +27,32 @@ public class DemoController {
     }
 
 
+    @RequestMapping("book")
+    public String redirectToBook() {
+        return "admin/book";
+    }
+
+    @RequestMapping("bookType")
+    public String redirectToBookType() {
+        return "admin/book-type";
+    }
+
+
+    @RequestMapping("user")
+    public String redirectToUser() {
+        return "admin/user-info";
+    }
+
+
+    @RequestMapping("record")
+    public String redirectToRecord() {
+        return "admin/record";
+    }
+
+
+    @RequestMapping("theme")
+    public String redirectToTheme() {
+        return "system/theme";
+    }
+
 }

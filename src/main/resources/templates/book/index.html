@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <title>后台管理模板系统</title>
@@ -30,7 +31,6 @@
                 </li>
                 <!-- 外部网站的小图标，点击跳转到其他网站 -->
                 <li class="layui-nav-item layadmin-flexible" lay-unselect>
-                    <!-- <a href="http://www.layui.com/admin/" title="前台"> -->
                     <a href="http://www.baidu.com/" title="百度 前台">
                         <i class="layui-icon layui-icon-engine"></i>
                     </a>
@@ -103,6 +103,7 @@
                 </li>
             </ul>
         </div>
+
         <!-- 侧边菜单 -->
         <div class="layui-side layui-side-menu">
             <div class="layui-side-scroll">
@@ -116,58 +117,52 @@
 
                     <!-- 后台主页 -->
                     <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                        <a href="javascript:;" lay-tips="主页" lay-direction="2">
+                        <!--<a th:href="@{/book}" lay-href="admin/overview.html" class="link-active" lay-tips="主页" lay-direction="1">-->
+                        <a th:href="@{/theme}" onclick="loadPageInIframe('/theme')" class="link-active" lay-tips="主页" lay-direction="1">
                             <i class="layui-icon layui-icon-home"></i>
                             <cite>主页</cite>
                         </a>
-                        <dl class="layui-nav-child">
-                            <dd data-name="console" class="layui-this">
-                                <a lay-href="home/console.html">控制台</a>
-                            </dd>
-
-                            <dd data-name="console">
-                                <a lay-href="home/homepage1.html">主页一</a>
-                            </dd>
-
-                            <dd data-name="console">
-                                <a lay-href="home/homepage2.html">主页二</a>
-                            </dd>
-                        </dl>
                     </li>
-
-
-
                     <!-- 图书类别管理 -->
                     <li data-name="bookType" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
+                        <!--<a href="javascript:;" lay-href="admin/book-type.html" class="link-active" lay-tips="组件" lay-direction="2">-->
+                        <a th:href="@{/bookType}" onclick="loadPageInIframe('/bookType')" class="link-active" lay-tips="主页" lay-direction="1">
                             <i class="layui-icon layui-icon-component"></i>
                             <cite>图书类别管理</cite>
                         </a>
                     </li>
                     <!-- 图书管理 -->
                     <li data-name="book" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                            <i class="layui-icon layui-icon-component"></i>
+                        <!--<a href="javascript:;" lay-href="admin/book.html" class="link-active" lay-tips="组件" lay-direction="3">-->
+                        <a th:href="@{/book}" onclick="loadPageInIframe('/book')" class="link-active" lay-tips="主页" lay-direction="1">
+                            <i class="layui-icon layui-icon-list"></i>
                             <cite>图书管理</cite>
                         </a>
                     </li>
                     <!-- 用户信息管理 -->
                     <li data-name="user" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                            <i class="layui-icon layui-icon-component"></i>
+                        <!--<a href="javascript:;" lay-href="admin/user-info.html" class="link-active" lay-tips="组件" lay-direction="4">-->
+                        <a th:href="@{/user}" onclick="loadPageInIframe('/user')" class="link-active" lay-tips="主页" lay-direction="1">
+                            <i class="layui-icon layui-icon-group"></i>
                             <cite>用户管理</cite>
                         </a>
                     </li>
+
                     <!-- 借阅管理 -->
                     <li data-name="record" class="layui-nav-item">
-                        <a href="javascript:;" lay-tips="组件" lay-direction="2">
-                            <i class="layui-icon layui-icon-component"></i>
+                        <!--<a href="javascript:;" lay-href="admin/record.html" class="link-active" lay-tips="组件" lay-direction="5">-->
+                        <a th:href="@{/record}" onclick="loadPageInIframe('/record')" class="link-active" lay-tips="主页" lay-direction="1">
+                            <i class="layui-icon layui-icon-user"></i>
                             <cite>借阅管理</cite>
                         </a>
                     </li>
+
+
                 </ul>
             </div>
         </div>
+
+
         <!-- 页面标签 -->
         <div class="layadmin-pagetabs" id="LAY_app_tabs">
             <div class="layui-icon layadmin-tabs-control layui-icon-prev" layadmin-event="leftPage"></div>
@@ -189,23 +184,131 @@
 
             <div class="layui-tab" lay-unauto lay-allowClose="true" lay-filter="layadmin-layout-tabs">
                 <ul class="layui-tab-title" id="LAY_app_tabsheader">
-                    <li lay-id="home/console.html" lay-attr="home/console.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
+                    <li lay-id="admin/overview.html" lay-attr="admin/overview.html" class="layui-this"><i class="layui-icon layui-icon-home"></i></li>
                 </ul>
             </div>
 
             <div class="layui-icon layadmin-tabs-control layui-icon-next" layadmin-event="rightPage"></div>
 
         </div>
+
+
+
         <!-- 主体内容 -->
-        <div class="layui-body" id="LAY_app_body">
+        <div class="layui-body">
+
             <div class="layadmin-tabsbody-item layui-show">
-                <iframe src="home/console.html" frameborder="0" class="layadmin-iframe"></iframe>
+                <iframe src="" id="mainFrame" frameborder="0" class="layadmin-iframe"></iframe>
             </div>
+
+            <!--<div class="layui-tab" lay-filter="tables" lay-allowclose="true">-->
+            <!--    <ul class="layui-tab-title">123123</ul>-->
+            <!--    <div class="layui-tab-content">egergrtg</div>-->
+            <!--</div>-->
         </div>
+
+
         <!-- 辅助元素，一般用于移动设备下遮罩 -->
         <div class="layadmin-body-shade" layadmin-event="shade"></div>
+
+
+        <!-- 底部固定区域 -->
+        <div class="layui-footer">
+            底部固定区域
+        </div>
+
+
+
     </div>
 </div>
+
+
+
+<!--iframe主体页面跳转-->
+<script>
+    function loadPageInIframe(url) {
+        // 阻止默认的链接跳转行为
+        event.preventDefault();
+
+        // 获取iframe元素
+        var iframe = document.getElementById('mainFrame');
+
+        // 设置iframe的src属性为后端返回的URL（这里需要处理，因为直接返回视图名不会有用）
+        // 如果后端返回的是视图名，你需要知道它解析后的实际URL
+        // 一种方法是让后端返回一个完整的URL，另一种方法是在前端硬编码这个映射
+        // 这里我们假设你有一个函数可以获取解析后的URL
+        var actualUrl = getUrlFromBackendMapping(url); // 这是一个你需要实现的函数
+
+        // 更新iframe的src
+        iframe.src = actualUrl;
+    }
+
+    // 这是一个假设的函数，你需要根据你的后端配置来实现它
+    function getUrlFromBackendMapping(viewName) {
+        // 例如，如果你的后端配置将视图名"book"映射到"/static/book.html"
+        // 你可以这样实现这个函数：
+        var baseUrl = ''; // 你的静态资源基础路径
+        return viewName; // 硬编码的映射，不推荐用于生产环境
+    }
+
+    // 注意：上面的getUrlFromBackendMapping函数是一个简化的例子。
+    // 在实际应用中，你可能需要根据你的后端配置来动态构建这个URL。
+    // 一个更好的方法是让后端通过一个专门的API返回这个URL。
+</script>
+
+
+<!--<script>//JavaScript代码区域-->
+<!--    layui.use(['element','layer','jquery'], function(){-->
+<!--        var element = layui.element;-->
+<!--        var $ = layui.jquery;-->
+<!--        //左侧菜单点击事件-->
+<!--        $('.link-active').on('click', function () {-->
+<!--            var dataid = $(this);-->
+<!--            //判断右侧是否有tab-->
+<!--            if ($('.layui-tab-title li[lay-id]').length <= 0) {-->
+<!--                tabFunction.tabAdd(dataid.attr('lay-href'), dataid.attr('data-id'), dataid.attr('data-title'));-->
+<!--            } else {-->
+<!--                //判断tab是否已经存在-->
+<!--                var isExist = false;-->
+<!--                $.each($('.layui-tab-title li[lay-id]'), function () {-->
+<!--                    //筛选id是否存在-->
+<!--                    if ($(this).attr('lay-id') == dataid.attr("data-id")) {-->
+<!--                        isExist = true;-->
+<!--                    }-->
+<!--                });-->
+<!--                //不存在，增加tab-->
+<!--                if (isExist == false) {-->
+<!--                    tabFunction.tabAdd(dataid.attr('lay-href'), dataid.attr('data-id'), dataid.attr('data-title'));-->
+<!--                }-->
+<!--            }-->
+<!--            //转到要打开的tab-->
+<!--            tabFunction.tabChange(dataid.attr('data-id'));-->
+
+<!--        });-->
+
+
+<!--        //定义函数 绑定增加tab，删除tab，切换tab几项事件-->
+<!--        var tabFunction = {-->
+<!--            //新增tab url 页面地址 id 对应data-id name标题-->
+<!--            tabAdd: function (url, id, name) {-->
+<!--                element.tabAdd('tables', {-->
+<!--                    title: name,-->
+<!--                    content: '<iframe data-frameid="' + id + '" scrolling="auto" frameborder="0" src="' + url + '" style="width:100%;height:800px"></iframe>',-->
+<!--                    id:id-->
+<!--                });-->
+<!--            },-->
+<!--            //根据id切换tab-->
+<!--            tabChange: function (id) {-->
+<!--                element.tabChange('tables',id)-->
+<!--            },-->
+<!--            //关闭指定的tab-->
+<!--            tabDelete: function (id) {-->
+<!--                element.tabDelete('tables',id)-->
+<!--            }-->
+<!--        }-->
+<!--    });-->
+<!--</script>-->
+
 
 
 <!-- 侧边栏收缩功能 -->
