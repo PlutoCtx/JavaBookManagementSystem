@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>后台管理模板系统</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+
+    <link rel="stylesheet" href="/layui/dist/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layui/dist/style/admin.css" media="all">
+
+    <script>
+        /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    </script>
+</head>
+<body class="layui-layout-body">
+<div id="LAY_app">
+    <div class="layui-layout layui-layout-admin">
+
+        <!-- 头部栏 分为两个区域，左边和右边 -->
+        <div class="layui-header">
+            <!-- 左边部分 -->
+            <ul class="layui-nav layui-layout-left">
+                <!-- 收缩按钮 -->
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="javascript:;" layadmin-event="flexible" title="侧边伸缩">
+                        <i class="layui-icon layui-icon-shrink-right" id="LAY_app_flexible"></i>
+                    </a>
+                </li>
+                <!-- 外部网站的小图标，点击跳转到其他网站 -->
+                <li class="layui-nav-item layadmin-flexible" lay-unselect>
+                    <a href="http://www.baidu.com/" title="百度 前台">
+                        <i class="layui-icon layui-icon-engine"></i>
+                    </a>
+                </li>
+                <!-- 刷新图标 -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;" layadmin-event="refresh" title="刷新">
+                        <i class="layui-icon layui-icon-refresh-3"></i>
+                    </a>
+                </li>
+                <!-- 搜索框 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <input type="text"
+                           placeholder="搜索..."
+                           autocomplete="off"
+                           class="layui-input layui-input-search"
+                           layadmin-event="search"
+                           lay-action="template/search.html?keywords=">
+                </li>
+            </ul>
+
+            <!-- 右边部分 -->
+            <ul class="layui-nav layui-layout-right" lay-filter="layadmin-layout-right">
+                <!-- 信息提示符号，铃铛 -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a lay-href="app/message/index.html" layadmin-event="message" lay-text="消息中心">
+                        <i class="layui-icon layui-icon-notice"></i>
+                        <!-- 如果有新消息，则显示小圆点 -->
+                        <span class="layui-badge-dot"></span>
+                    </a>
+                </li>
+                <!-- 更换后台页面的配色风格 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="theme">
+                        <i class="layui-icon layui-icon-theme"></i>
+                    </a>
+                </li>
+                <!-- 便签，但我感觉没什么用 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="note">
+                        <i class="layui-icon layui-icon-note"></i>
+                    </a>
+                </li>
+                <!-- 全屏 -->
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="fullscreen">
+                        <i class="layui-icon layui-icon-screen-full"></i>
+                    </a>
+                </li>
+                <!-- 用户名 用户信息修改 -->
+                <li class="layui-nav-item" lay-unselect>
+                    <a href="javascript:;">
+                        <!-- 用户名 -->
+                        <cite>贤心</cite>
+                    </a>
+
+                    <dl class="layui-nav-child">
+                        <hr>
+                        <!-- 退出操作 -->
+                        <dd layadmin-event="logout" style="text-align: center;">
+                            <a>退出</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-hide-xs" lay-unselect>
+                    <a href="javascript:;" layadmin-event="more">
+                        <i class="layui-icon layui-icon-more-vertical"></i>
+                        <href></href>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- 侧边菜单 -->
+        <div class="layui-side layui-side-menu">
+            <div class="layui-side-scroll">
+                <!-- 最上方标题 网站名称 -->
+                <div class="layui-logo" lay-href="home/console.html">
+                    <span>图书管理系统</span>
+                </div>
+                <!-- 目录栏内容 -->
+                <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
+                    <!-- 后台主页 -->
+                    <li data-name="home" class="layui-nav-item layui-nav-itemed">
+                        <a th:href="@{/overview}" onclick="loadPageInIframe('/overview')" class="link-active" lay-tips="主页" lay-direction="1">
+                            <i class="layui-icon layui-icon-home"></i>
+                            <cite>主页</cite>
+                        </a>
+                    </li>
+                    <!-- 图书类别管理 -->
+                    <li data-name="bookType" class="layui-nav-item">
+                        <a th:href="@{/bookType}" onclick="loadPageInIframe('/bookType')" class="link-active" lay-tips="组件" lay-direction="1">
+                            <i class="layui-icon layui-icon-component"></i>
+                            <cite>图书类别管理</cite>
+                        </a>
+                    </li>
+                    <!-- 图书管理 -->
+                    <li data-name="book" class="layui-nav-item">
+                        <a th:href="@{/templates/book}" onclick="loadPageInIframe('/book')" class="link-active" lay-tips="组件" lay-direction="1">
+                            <i class="layui-icon layui-icon-list"></i>
+                            <cite>图书管理</cite>
+                        </a>
+                    </li>
+                    <!-- 用户信息管理 -->
+                    <li data-name="user" class="layui-nav-item">
+                        <a th:href="@{/user}" onclick="loadPageInIframe('/user')" class="link-active" lay-tips="组件" lay-direction="1">
+                            <i class="layui-icon layui-icon-group"></i>
+                            <cite>用户管理</cite>
+                        </a>
+                    </li>
+                    <!-- 借阅管理 -->
+                    <li data-name="record" class="layui-nav-item">
+                        <a th:href="@{/record}" onclick="loadPageInIframe('/record')" class="link-active" lay-tips="组件" lay-direction="1">
+                            <i class="layui-icon layui-icon-user"></i>
+                            <cite>借阅管理</cite>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 主体内容 -->
+        <div class="layui-body" id="LAY_app_body">
+            <div class="layadmin-tabsbody-item layui-show">
+                <iframe src="" id="mainFrame" frameborder="0" class="layadmin-iframe"></iframe>
+            </div>
+        </div>
+
+        <!--&lt;!&ndash; 辅助元素，一般用于移动设备下遮罩 &ndash;&gt;-->
+        <div class="layadmin-body-shade" layadmin-event="shade"></div>
+
+        <!-- 底部固定区域 -->
+        <div class="layui-footer">
+            底部固定区域
+        </div>
+    </div>
+</div>
+
+<script>
+    // 确保 DOM 完全加载后再执行
+    document.addEventListener('DOMContentLoaded', function () {
+        // 自动加载主页
+        autoLoadHomePage();
+    });
+    function autoLoadHomePage() {
+        // 检查是否已经加载过，或者根据特定条件判断是否需要自动加载
+        loadPageInIframe('/overview');
+    }
+
+    function loadPageInIframe(url) {
+        // 阻止默认的链接跳转行为
+        event.preventDefault();
+        // 获取iframe元素
+        var iframe = document.getElementById('mainFrame');
+        var actualUrl = getUrlFromBackendMapping(url); // 这是一个你需要实现的函数
+        // 更新iframe的src
+        iframe.src = actualUrl;
+    }
+
+    // 这是一个假设的函数，你需要根据你的后端配置来实现它
+    function getUrlFromBackendMapping(viewName) {
+        // 例如，如果你的后端配置将视图名"book"映射到"/static/admin-book.html"
+        return viewName; // 硬编码的映射，不推荐用于生产环境
+    }
+</script>
+
+
+<!-- 侧边栏收缩功能 -->
+<script src="/layui/dist/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../layui/dist/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use('index');
+</script>
+
+<!-- 百度统计 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d214947968792b839fd669a4decaaffc";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>
