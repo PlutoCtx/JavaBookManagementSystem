@@ -18,36 +18,49 @@
         <div class="layui-form layui-card-header layuiadmin-card-header-auto">
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">文章ID</label>
+                    <label class="layui-form-label">用户号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="userId" placeholder="请输入用户号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">作者</label>
+                    <label class="layui-form-label">学号</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="author" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="studentId" placeholder="请输入学号" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">标题</label>
+                    <label class="layui-form-label">昵称</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="nickname" placeholder="请输入昵称" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
-                    <label class="layui-form-label">文章标签</label>
+                    <label class="layui-form-label">邮箱</label>
                     <div class="layui-input-inline">
-                        <select name="label">
-                            <option value="">请选择标签</option>
-                            <option value="0">美食</option>
-                            <option value="1">新闻</option>
-                            <option value="2">八卦</option>
-                            <option value="3">体育</option>
-                            <option value="4">音乐</option>
-                        </select>
+                        <input type="text" name="email" placeholder="请输入邮箱" autocomplete="off" class="layui-input">
                     </div>
                 </div>
+                <div class="layui-inline">
+                    <label class="layui-form-label">手机号</label>
+                    <div class="layui-input-inline">
+                        <input type="text" name="phone" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <!--<div class="layui-inline">-->
+                <!--    <label class="layui-form-label">文章标签</label>-->
+                <!--    <div class="layui-input-inline">-->
+                <!--        <select name="label">-->
+                <!--            <option value="">请选择标签</option>-->
+                <!--            <option value="0">美食</option>-->
+                <!--            <option value="1">新闻</option>-->
+                <!--            <option value="2">八卦</option>-->
+                <!--            <option value="3">体育</option>-->
+                <!--            <option value="4">音乐</option>-->
+                <!--        </select>-->
+                <!--    </div>-->
+                <!--</div>-->
+
                 <div class="layui-inline">
                     <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
                         <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
@@ -61,18 +74,75 @@
                 <button class="layui-btn layuiadmin-btn-list" data-type="batchdel">删除</button>
                 <button class="layui-btn layuiadmin-btn-list" data-type="add">添加</button>
             </div>
-            <table id="LAY-app-content-list" lay-filter="LAY-app-content-list"></table>
-            <script type="text/html" id="buttonTpl">
-                {{#  if(d.status){ }}
-                <button class="layui-btn layui-btn-xs">已发布</button>
-                {{#  } else { }}
-                <button class="layui-btn layui-btn-primary layui-btn-xs">待修改</button>
-                {{#  } }}
-            </script>
-            <script type="text/html" id="table-content-list">
-                <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
-                <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
-            </script>
+
+
+            <table id="LAY-app-content-list" lay-filter="LAY-app-content-list">
+                <thead>
+                    <tr>
+                        <th style="width:50px;">
+                            <div class="form-check custom-checkbox checkbox-success check-lg me-3">
+                                <input type="checkbox" class="form-check-input" id="checkAll" required="">
+                                <label class="form-check-label" for="checkAll"></label>
+                            </div>
+                        </th>
+                        <th>学生编号</th>
+                        <th>学生姓名</th>
+                        <th>年龄</th>
+                        <th>性别</th>
+                        <th>学院</th>
+                        <th>专业</th>
+
+
+                        <!--<th>手机</th>-->
+                        <!--<th>邮箱</th>-->
+                        <th>操作</th>
+                    </tr>
+                </thead>
+
+
+                <tbody>
+
+
+                <!--    <tr th:each="student:${pageInfo.list}">-->
+                <!--    <td>-->
+                <!--        <div class="form-check custom-checkbox checkbox-success check-lg me-3">-->
+                <!--            <input th:value="${student.studentId}"  name="chkHistory" type="checkbox"  class="form-check-input" id="customCheckBox2" >-->
+                <!--            <label class="form-check-label" for="customCheckBox2"></label>-->
+                <!--        </div>-->
+                <!--    </td>-->
+                <!--    &lt;!&ndash;<td><strong>[[${student.studentId}]]</strong></td>&ndash;&gt;-->
+                <!--    <td><strong>[[${student.studentName}]]</strong></td>-->
+                <!--    &lt;!&ndash;<td><div class="d-flex align-items-center"><img th:src="'http://localhost:8080/'+${student.simage}" class="rounded-lg me-2" width="24" alt=""> <span class="w-space-no"><strong>[[${student.sname}]]</strong></span></div></td>&ndash;&gt;-->
+                <!--    <td><strong>[[${student.age}]]</strong></td>-->
+                <!--    <td><strong>[[${student.sex}]]</strong></td>-->
+                <!--    &lt;!&ndash;<td><strong>[[${student.phone}]]</strong></td>&ndash;&gt;-->
+                <!--    &lt;!&ndash;<td><strong>[[${student.email}]]</strong></td>&ndash;&gt;-->
+                <!--    <td><strong>[[${student.college}]]</strong></td>-->
+                <!--    <td><strong>[[${student.major}]]</strong></td>-->
+                <!--    <td><strong>[[${student.classname}]]</strong></td>-->
+                <!--    <td>-->
+                <!--        <div class="d-flex">-->
+                <!--            <a th:href="@{'/student/preUpdateStudent/'+${student.id}}" class="btn btn-primary shadow btn-xs sharp me-1"><i class="fas fa-pencil-alt"></i></a>-->
+                <!--            <a th:href="@{'/student/delStudent/'+${student.id}}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>-->
+                <!--        </div>-->
+                <!--    </td>-->
+                <!--</tr>-->
+                </tbody>
+
+
+
+            </table>
+            <!--<script type="text/html" id="buttonTpl">-->
+            <!--    {{#  if(d.status){ }}-->
+            <!--    <button class="layui-btn layui-btn-xs">已发布</button>-->
+            <!--    {{#  } else { }}-->
+            <!--    <button class="layui-btn layui-btn-primary layui-btn-xs">待修改</button>-->
+            <!--    {{#  } }}-->
+            <!--</script>-->
+            <!--<script type="text/html" id="table-content-list">-->
+            <!--    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>-->
+            <!--    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>-->
+            <!--</script>-->
         </div>
     </div>
 </div>

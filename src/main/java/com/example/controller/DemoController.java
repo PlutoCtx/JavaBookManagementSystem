@@ -23,30 +23,30 @@ public class DemoController {
         System.out.println(username);
         System.out.println(password);
 
-        return "admin-home";
+        return "admin/admin-home";
     }
 
 
     @RequestMapping("book")
     public String redirectToBook() {
-        return "admin-book";
+        return "admin/admin-book";
     }
 
     @RequestMapping("bookType")
     public String redirectToBookType() {
-        return "admin-book-type";
+        return "admin/admin-book-type";
     }
 
 
     @RequestMapping("user")
     public String redirectToUser() {
-        return "admin-user-info";
+        return "admin/admin-user-info";
     }
 
 
     @RequestMapping("record")
     public String redirectToRecord() {
-        return "admin-record";
+        return "admin/admin-record";
     }
 
 
@@ -58,7 +58,7 @@ public class DemoController {
 
     @RequestMapping("overview")
     public String redirectToOverview() {
-        return "admin-overview";
+        return "admin/admin-overview";
     }
 
 }

@@ -13,4 +13,7 @@ spring:
   web:
     resources:
       static-locations: classpath:/static/,classpath:/static/assets/,classpath:/static/scenicSingle/,classpath:/public/,classpath:/resources/,classpath:/META-INF/resource/,file:${location}
-
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

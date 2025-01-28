@@ -1,5 +1,6 @@
 package com.example.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,17 +21,32 @@ import lombok.NoArgsConstructor;
 @TableName("user")
 public class User {
 
-
+    // 用户ID
+    @TableField("user_id")
     private Integer userId;
-    private String username;
+
+    // 学号
+    @TableField("student_id")
+    private String studentId;
+
+    // 用户名
+    @TableField("nickname")
+    private String nickname;
+
+    // 密码
+    @TableField("password")
     private String password;
+
+    // 邮箱
+    @TableField("email")
     private String email;
+
+    // 手机
+    @TableField("phone")
     private String phone;
-    private String address;
-    private String sex;
-    private String age;
-    private String major;
-    private String college;
-    private String simage;
+
+    // 头像
+    @TableField("user_avatar")
+    private String userAvatar;
 
 }
