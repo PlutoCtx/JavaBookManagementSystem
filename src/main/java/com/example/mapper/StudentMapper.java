@@ -2,6 +2,7 @@ package com.example.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.example.pojo.Student;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +16,13 @@ import java.util.List;
  * @since JDK17
  */
 
-@Repository
+@Mapper
+//@Repository
 public interface StudentMapper extends BaseMapper<Student> {
 
-    @Select("select * from user")
-    List<Student> findAll();
+    @Select("select * from student")
+    List<Student> selectAll();
+
+    //@Select("select * from user")
+    List<Student> selectList();
 }

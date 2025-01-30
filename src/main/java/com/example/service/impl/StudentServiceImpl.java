@@ -26,6 +26,12 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
     @Autowired
     private StudentMapper studentMapper;
 
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentMapper.selectAll();
+    }
+
     @Override
     public boolean login(String username, String password) {
 
@@ -33,20 +39,20 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         qw.eq("student_name",username);
         //qw.eq("password", DigestUtil.md5Hex(password));
         Student student = studentMapper.selectOne(qw);
-        //if (student==null){
-        //    return false;
-        //}else {
-        //    return true;
-        //}
+        if (student==null){
+            return false;
+        }else {
+            return true;
+        }
 
-        return true;
+        //return true;
     }
 
-    @Override
-    public List<Student> findAll() {
-        //return List.of();
-        return null;
-    }
+    //@Override
+    //public List<Student> findAll() {
+    //    //return List.of();
+    //    return null;
+    //}
 
     //@Override
     //@Select("select * from user")

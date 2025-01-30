@@ -2,7 +2,7 @@ package com.example.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.example.pojo.Student;
-import org.apache.ibatis.annotations.Select;
+//import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -17,6 +17,8 @@ import java.util.List;
 public interface StudentService extends IService<Student> {
     boolean login(String username, String password);
 
-    @Select("select * from user")
-    List<Student> findAll();
+    List<Student> getAllStudents();
+
+    //@Select("select * from user")
+    //List<Student> findAll();
 }
