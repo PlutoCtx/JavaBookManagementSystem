@@ -19,6 +19,4 @@ public interface StudentService extends IService<Student> {
 
     List<Student> getAllStudents();
 
-    //@Select("select * from user")
-    //List<Student> findAll();
 }

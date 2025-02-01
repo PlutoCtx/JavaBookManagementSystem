@@ -44,19 +44,6 @@ public class StudentServiceImpl extends ServiceImpl<StudentMapper, Student> impl
         }else {
             return true;
         }
-
-        //return true;
     }
 
-    //@Override
-    //public List<Student> findAll() {
-    //    //return List.of();
-    //    return null;
-    //}
-
-    //@Override
-    //@Select("select * from user")
-    //public List<Student> findAll() {
-    //    return List.of();
-    //}
 }
