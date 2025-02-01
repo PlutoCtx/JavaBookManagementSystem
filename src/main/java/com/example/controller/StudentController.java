@@ -46,29 +46,32 @@ public class StudentController {
     //@RequestMapping("listStudent")
     //@GetMapping("/listStudent")
     //public String listStudent(Model model, Student student) {
-    //public String listStudent(@RequestParam(defaultValue = "1", value = "pageNum", required = false)Integer pageNum,
-    //                          @RequestParam(defaultValue = "10", value = "pageSize", required = false)Integer pageSize,
-    //                          Model model,
-    //                          Student student) {
-    @GetMapping("/listStudent")
-    public List<Student> listStudent() {
+    public String listStudent(@RequestParam(defaultValue = "1", value = "pageNum", required = false)Integer pageNum,
+                              @RequestParam(defaultValue = "10", value = "pageSize", required = false)Integer pageSize,
+                              Model model) {
+    //@GetMapping("/listStudent")
+    //public List<Student> listStudent() {
 
-        //if (pageNum < 0 || pageNum.equals("") || pageNum == null){
-        //    pageNum = 1;
-        //}
-        //if (pageSize < 0 || pageSize.equals("") || pageSize == null){
-        //    pageSize = 6;
-        //}
-        //PageHelper.startPage(pageNum, pageSize);
+        if (pageNum < 0 || pageNum.equals("") || pageNum == null){
+            pageNum = 1;
+        }
+        if (pageSize < 0 || pageSize.equals("") || pageSize == null){
+            pageSize = 6;
+        }
+        PageHelper.startPage(pageNum, pageSize);
         //QueryWrapper<Student> qw = new QueryWrapper<>();
         //if (student.getStudentName() != null){
         //    qw.like("student_name", student.getStudentName());
         //}
         //List<Student> list = studentService.list(qw);
-        //PageInfo<Student>pageInfo=new PageInfo<>(list);
+
+
+        //List<Student> list = studentService.getAllStudents();
+        //PageInfo<Student> pageInfo = new PageInfo<>(list);
         //model.addAttribute("pageInfo",pageInfo);
-        //return "admin-student-list";
-        return studentService.getAllStudents();
+        return "admin/admin-student-list";
+
+        //return studentService.getAllStudents();
 
 
         ////QueryWrapper<Student> queryWrapper = new QueryWrapper<>();
