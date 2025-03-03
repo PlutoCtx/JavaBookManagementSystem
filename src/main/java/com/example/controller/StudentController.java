@@ -4,6 +4,7 @@ import com.example.service.StudentService;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,30 +18,26 @@ import org.springframework.web.bind.annotation.RestController;
  * @since JDK17
  */
 
-@RestController
-@RequestMapping("/admin")
+//@RestController
+@Controller
+//@RequestMapping("/admin")
+//@RequestMapping
 public class StudentController {
 
-    @Autowired
-    private StudentService studentService;
+    //@Autowired
+    //private StudentService studentService;
 
-    @Value("${location")
+    @Value("${location}")
     private String location;
 
 
-    @RequestMapping("/listStudent")
-    public String listStudent(@RequestParam(defaultValue = "1", value = "pageNum", required = false)Integer pageNum,
-                              @RequestParam(defaultValue = "10", value = "pageSize", required = false)Integer pageSize,
-                              Model model) {
 
-        if (pageNum < 0 || pageNum.equals("") || pageNum == null){
-            pageNum = 1;
-        }
-        if (pageSize < 0 || pageSize.equals("") || pageSize == null){
-            pageSize = 6;
-        }
-        PageHelper.startPage(pageNum, pageSize);
-
-        return "admin/admin-student-list";
+    @RequestMapping("listStudent")
+    public String listStudent() {
+        //return "admin/admin-overview";
+        //return "admin/record";
+        return "admin/admin-user-info";
     }
+
+
 }
